@@ -1,0 +1,99 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Node {
+    string data;
+    Node* prev;
+    Node* next;
+};
+
+Node* visitAddress(Node* head, const string& address) {
+    Node* current = head;
+    while (current != nullptr) {
+        if (current->data == address) {
+            return current;
+        }
+        current = current->next;
+    }
+    return nullptr;
+}
+
+Node* traverseNext(Node* current) {
+    if (current->next != nullptr) {
+        return current->next;
+    } else {
+        return nullptr;
+    }
+}
+
+Node* traversePrev(Node* current) {
+    if (current->prev != nullptr) {
+        return current->prev;
+    } else {
+        return nullptr;
+    }
+}
+
+int main() {
+    Node* head = nullptr;
+    Node* tail = nullptr;
+    string input;
+    while (cin >> input && input != "end") {
+        Node* newNode = new Node();
+        newNode->data = input;
+        newNode->prev = nullptr;
+        newNode->next = nullptr;
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+    }
+
+    int Q;
+    cin >> Q;
+    for (int i = 0; i < Q; i++) {
+        string command;
+        cin >> command;
+        if (command == "visit") {
+            string address;
+            cin >> address;
+            Node* result = visitAddress(head, address);
+            if (result != nullptr) {
+                cout << result->data << endl;
+            } else {
+                cout << "Not Available" << endl;
+            }
+        } else if (command == "next") {
+            Node* nextNode = traverseNext(head);
+            if (nextNode != nullptr) {
+                cout << nextNode->data << endl;
+                head = nextNode;
+            } else {
+                cout << "Not Available" << endl;
+            }
+        } else if (command == "prev") {
+            Node* prevNode = traversePrev(head);
+            if (prevNode != nullptr) {
+                cout << prevNode->data << endl;
+                head = prevNode;
+            } else {
+                cout << "Not Available" << endl;
+            }
+        }
+    }
+
+    // Free the allocated memory
+    Node* current = head;
+    while (current != nullptr) {
+        Node* temp = current;
+        current = current->next;
+        delete temp;
+    }
+
+    return 0;
+}
