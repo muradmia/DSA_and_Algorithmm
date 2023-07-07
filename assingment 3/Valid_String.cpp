@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-bool check(string &s) {
+bool check(string s) {
     stack<char> st;
     for (char c : s) {
         if (!st.empty() && st.top() != c) {
