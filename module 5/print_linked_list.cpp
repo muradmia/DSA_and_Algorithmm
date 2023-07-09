@@ -33,10 +33,7 @@ int main(){
 
     print(head);
 
-     while(head != NULL){
-        cout<<" "<<head->data;
-        head = head->next;
-    }
+     
 
   return 0;
 }
