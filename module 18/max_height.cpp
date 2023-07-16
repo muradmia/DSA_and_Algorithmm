@@ -13,7 +13,6 @@ public:
         this->right = NULL;
     }
 };
-
 Node* input() {
     int val;
     cin >> val;

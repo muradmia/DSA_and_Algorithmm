@@ -70,7 +70,7 @@ int count_leaf(Node *root){
     }else{
         int l = count(root->left);
         int r = count(root->left);
-    return l+r;
+        return l+r;
     }
 }
 int main() {
